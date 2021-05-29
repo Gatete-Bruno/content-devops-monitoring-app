@@ -1,0 +1,41 @@
+Solution
+Open a new browser tab, paste in the public IP provided for the monitoring server on the lab page, and add :3000 to the end. This should take you to the Grafana UI.
+Enter the username admin and the password admin.
+When prompted to change the password, enter whatever you'd like.
+Click Save.
+Add Prometheus as a Data Source
+Click Add data source from the home page.
+Select Prometheus.
+For URL, enter http://localhost:9090.
+Click Save & Test. Make sure you see the "Data source is working" message.
+Add the Suggested Dashboards for the Prometheus Data Source
+Click the Dashboards tab.
+Click Import next to both Prometheus 2.0 Stats and Grafana metrics.
+Import the "Node Exporter Full" Dashboard
+Click the plus sign on the side menu, and then select Import.
+In a new window or tab, open the Node Exporter JSON.
+Back on the Grafana page, in the Or paste JSON box, paste in the JSON.
+For localhost, click the dropdown and select Prometheus.
+Click Import.
+Create a New Dashboard Called "Forethought"
+Click the plus sign, and select Dashboard.
+Click the cog icon on the top of the screen and rename the dashboard to Forethought.
+Click Save.
+Add a Heatmap to the Dashboard
+Click the Add panel button (the bar graph icon in the top right).
+Select Heatmap.
+Click the panel title, and then click Edit.
+Set the metric so it tracks the average of all our response times via bucket:
+
+sum(rate(forethought_request_hist_bucket[30s])) by (le)
+Ensure the Legend format is set to {{le}}.
+
+Switch to the Axes tab.
+Change the Data format to Time series buckets.
+Click the General tab.
+Change the title to "Response Times".
+Save the Dashboard
+Click the arrow icon in the top right to return to the dashboard.
+Click the disk icon to save our changes.
+In the dialog box that pops up, enter the comment "Added response times".
+Click Save.
